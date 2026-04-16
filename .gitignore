@@ -1,1 +1,23 @@
+__pycache__/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
+.env.local
+.env.DS_Store
+.env
+.env.*
+!.env.example
+
+.DS_Store
+**/.DS_Store
+
+.sync/
+*.log
+*.pid
+*.tmp
+*.swp
+*.swo
+
+diagrams/*.svg

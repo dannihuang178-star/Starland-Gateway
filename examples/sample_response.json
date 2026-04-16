@@ -1,0 +1,21 @@
+{
+  "id": "chatcmpl-demo",
+  "object": "chat.completion",
+  "created": 1776360000,
+  "model": "openai:gpt-4.1",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "A gateway layer centralizes model routing, memory retrieval, context assembly, cost controls, and provider credentials. The tradeoff is additional backend complexity and operational responsibility, but it makes LLM behavior more consistent across clients."
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 120,
+    "completion_tokens": 42,
+    "total_tokens": 162
+  }
+}

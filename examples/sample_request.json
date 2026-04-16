@@ -1,1 +1,20 @@
-
+{
+  "model": "openai:gpt-4.1",
+  "stream": false,
+  "temperature": 0.7,
+  "max_tokens": 800,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a concise assistant. Follow the user's request."
+    },
+    {
+      "role": "user",
+      "content": "Summarize the key tradeoffs of using a gateway layer for LLM applications."
+    }
+  ],
+  "metadata": {
+    "user_id": "demo-user",
+    "conversation_id": "demo-conversation"
+  }
+}

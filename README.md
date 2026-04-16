@@ -4,13 +4,11 @@ A custom multi-provider LLM gateway built to support persona-aware conversation 
 
 ## Overview
 
-Starland Gateway is a personal infrastructure project designed to sit between user-facing applications and multiple language model providers.  
-It was built to solve a practical problem: how to maintain continuity, control, and long-horizon conversational quality across interfaces, providers, and context limits.
+Starland Gateway is a custom multi-provider LLM gateway designed for persona-aware orchestration, long-context handling, and memory-oriented conversation workflows.
 
-Instead of sending raw requests directly from the front end to a model API, the gateway adds a structured orchestration layer for routing, prompt injection, context compression, streaming, and memory-aware processing.
+It sits between user-facing applications and model providers, adding a structured control layer for request preprocessing, routing, streaming, and memory-aware post-processing. Instead of treating each model call as an isolated API request, the gateway is designed to support continuity across interfaces, providers, and long-running conversations.
 
-This public repository is a project showcase rather than the full production codebase.  
-Some implementation details remain private because they include personal workflow logic, deployment-specific configuration, and private memory architecture.
+This public repository is a project showcase rather than the full production codebase. It documents the system’s architecture, design logic, and selected implementation patterns, while keeping private workflow logic, deployment-specific configuration, and sensitive memory infrastructure out of the public repo.
 
 ## Core Goals
 
@@ -20,6 +18,28 @@ Some implementation details remain private because they include personal workflo
 - Preserve recent conversational continuity while compressing older history
 - Enable memory-aware workflows without exposing private user data
 - Stream responses efficiently to the client layer
+
+## Example Request Lifecycle
+
+A typical request flows through the gateway in the following stages:
+
+1. **Client request intake**  
+   A frontend or client sends a chat request to the gateway through a unified API layer.
+
+2. **Request preprocessing**  
+   The gateway normalizes the request, injects system or persona instructions, and prepares the context window.
+
+3. **Context handling**  
+   Recent conversation turns are preserved, while older history can be compressed into summary layers to stay within budget.
+
+4. **Model routing**  
+   The request is routed to the selected provider and model through a multi-provider abstraction layer.
+
+5. **Streaming response delivery**  
+   The model response is streamed back to the client for a smoother interactive experience.
+
+6. **Post-processing and memory hooks**  
+   After response generation, the system can trigger logging, summary updates, or memory-oriented workflows asynchronously.
 
 ## Key Features
 
@@ -54,6 +74,10 @@ This project reflects my interest in:
 - memory systems
 - prompt orchestration
 - practical infrastructure for human-centered AI interaction
+
+## Architecture Diagram
+
+![Starland Gateway Architecture](diagrams/gateway_architecture.png)
 
 ## High-Level Architecture
 
@@ -122,22 +146,26 @@ The architecture supports the idea that not every task should run on the same mo
 
 ---
 
-## Technical Themes
-* **Framework:** FastAPI-based service design for high-performance asynchrony.
-* **Streaming:** Robust SSE (Server-Sent Events) response handling.
-* **Abstraction:** Multi-provider model normalization.
-* **Management:** Context window budgeting and summary-layer orchestration.
-* **Integration:** Structured hooks for long-term memory systems.
-* **Trade-offs:** Balancing practical engineering limits between quality, latency, and cost.
+## Technical Scope
 
+The public version of the project reflects a system designed around:
+- FastAPI-based request handling
+- SSE-style streaming responses
+- OpenAI-compatible client patterns
+- multi-provider routing
+- context budgeting and summary insertion
+- separation of chat and memory-oriented workloads
+- memory integration with external storage layers
+- tool-oriented extensions through external knowledge interfaces
+- portable orchestration across different frontends
+  
 ---
 
 ## Why the Full Code Is Not Public
-The complete internal version of **Starland Gateway** (originally Neil Gateway) is a private infrastructure tool. This repository serves as a **showcase and documentation layer** because the production version contains:
-* Personal workflow logic and private prompt engineering.
-* Deployment-specific configurations and secrets.
-* Memory infrastructure tied to private usage data.
-* Internal experiments that are not yet stable for open release.
+
+The complete internal version of the gateway includes private workflow logic, deployment-specific configuration, sensitive memory infrastructure, and personal prompt architecture.
+
+Because of that, this repository is intentionally presented as a public showcase: it focuses on system design, engineering decisions, and redacted implementation patterns rather than the full production source.
 
 ---
 

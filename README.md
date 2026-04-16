@@ -85,3 +85,69 @@ Frontend / Client
  └───────────────────────┘
         ↓
 Frontend / Storage / Memory Services
+```
+
+## Public Scope of This Repository
+
+This repository is intended to document the project’s design and engineering decisions.
+
+It may include:
+- architecture notes
+- redacted code samples
+- simplified interfaces
+- request / response examples
+- screenshots or diagrams
+- design trade-offs and implementation notes
+
+It does not include the full production implementation, private prompts, deployment secrets, user data, or private memory content.
+
+## Example Design Areas
+
+### Request Orchestration
+The gateway prepares requests before they reach the model layer, including:
+* **Model/Provider Selection:** Dynamically choosing the best engine for the task.
+* **System Instructions:** Injecting persona-aware logic and safety guardrails.
+* **Context Optimization:** Trimming or compressing history while preserving recent turns.
+* **Layered Augmentation:** Attaching relevant summary layers where needed.
+
+### Context Handling
+One of the main design challenges is balancing **response quality, token cost, continuity, and latency**. The gateway addresses this by:
+* **Message Retention:** Prioritizing the most recent interaction turns.
+* **Summary-based Compression:** Using AI-generated summaries to retain long-term context without bloating token counts.
+
+### Separation of Chat and Memory Workloads
+The architecture supports the idea that not every task should run on the same model or with the same cost profile. For example:
+* **Conversational Generation:** Optimized for speed and fluidity.
+* **Memory Summarization:** Treated as a separate, background workload that can run on more cost-effective models.
+
+---
+
+## Technical Themes
+* **Framework:** FastAPI-based service design for high-performance asynchrony.
+* **Streaming:** Robust SSE (Server-Sent Events) response handling.
+* **Abstraction:** Multi-provider model normalization.
+* **Management:** Context window budgeting and summary-layer orchestration.
+* **Integration:** Structured hooks for long-term memory systems.
+* **Trade-offs:** Balancing practical engineering limits between quality, latency, and cost.
+
+---
+
+## Why the Full Code Is Not Public
+The complete internal version of **Starland Gateway** (originally Neil Gateway) is a private infrastructure tool. This repository serves as a **showcase and documentation layer** because the production version contains:
+* Personal workflow logic and private prompt engineering.
+* Deployment-specific configurations and secrets.
+* Memory infrastructure tied to private usage data.
+* Internal experiments that are not yet stable for open release.
+
+---
+
+## Future Directions
+- [ ] **Refined Interfaces:** Cleaner public API examples and SDK-like wrappers.
+- [ ] **Visual Documentation:** Additional sequence diagrams for complex request flows.
+- [ ] **Redacted Samples:** More implementation snippets (e.g., the compression logic).
+- [ ] **Evaluation Notes:** Case studies on model routing efficiency and long-horizon conversation quality.
+
+---
+
+## Contact
+If you’d like to discuss the project, system design choices, or my work in Data / AI / Analytics, feel free to connect with me on **[LinkedIn](https://www.linkedin.com/in/danni-huang-b28771201/)**.
